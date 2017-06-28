@@ -6,15 +6,26 @@ import Cytoscape from "./Cytoscape";
 
 class App extends Component {
   state = {
-    data: {}
+    data: {},
+    p: 0
   };
 
-  componentDidMount() {
+  getData(p) {
     axios
       .post("http://localhost/ocpu/library/enrichmentmap/R/getJsonStr/json", {
-        p: 0
+        p
       })
       .then(result => this.setState({ data: JSON.parse(result.data[0]) }));
+  }
+
+  componentDidMount() {
+    this.getData(this.state.p);
+  }
+
+  componentWillUpdate(props, state) {
+    if (this.state.p !== state.p) {
+      this.getData(state.p);
+    }
   }
 
   render() {
@@ -22,6 +33,7 @@ class App extends Component {
     return (
       <div>
         <Cytoscape elements={data} />
+        <button onClick={() => this.setState({ p: 1 })}>Click</button>
       </div>
     );
   }

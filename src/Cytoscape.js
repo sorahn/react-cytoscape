@@ -56,11 +56,11 @@ export default class Cytoscape extends React.Component {
   }
 
   componentDidMount() {
-    doTheThing();
+    this.doTheThing();
   }
 
   componentDidUpdate() {
-    doTheThing();
+    this.doTheThing();
   }
 
   render() {
