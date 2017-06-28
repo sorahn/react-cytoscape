@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
-import "./App.css";
+import axios from "axios";
 
 import Cytoscape from "./Cytoscape";
 
@@ -10,28 +10,18 @@ class App extends Component {
   };
 
   componentDidMount() {
-    fetch("http://localhost:4000/data")
-      .then(r => r.json())
-      .then(d => this.setState({ data: d }));
+    axios
+      .post("http://localhost/ocpu/library/enrichmentmap/R/getJsonStr/json", {
+        p: 0
+      })
+      .then(result => this.setState({ data: JSON.parse(result.data[0]) }));
   }
 
   render() {
     const { data } = this.state;
     return (
       <div>
-        <div className="App">
-          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h2>Welcome to React</h2>
-
-          </div>
-          <p className="App-intro">
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
-        </div>
-
-        {Object.keys(data).length && <Cytoscape elements={data} />}
-
+        <Cytoscape elements={data} />
       </div>
     );
   }

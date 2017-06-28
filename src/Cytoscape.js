@@ -37,7 +37,7 @@ const defaultLayout = {
 
 export default class Cytoscape extends React.Component {
   static defaultProps = {
-    height: "700px",
+    height: "600px",
     layout: defaultLayout,
     style: defaultStyle,
     width: "100%"
@@ -47,9 +47,20 @@ export default class Cytoscape extends React.Component {
     elements: PropTypes.object.isRequired
   };
 
-  componentDidMount() {
+  doTheThing() {
     const { style, elements, layout } = this.props;
-    cytoscape({ style, elements, layout, container: this.div });
+
+    if (Object.keys(elements).length) {
+      cytoscape({ style, elements, layout, container: this.div });
+    }
+  }
+
+  componentDidMount() {
+    doTheThing();
+  }
+
+  componentDidUpdate() {
+    doTheThing();
   }
 
   render() {
