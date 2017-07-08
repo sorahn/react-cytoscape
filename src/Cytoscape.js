@@ -13,8 +13,8 @@ const defaultNodeStyle = {
   style: {
     content: "data(id)",
     "font-size": 4,
-    "background-color": "#ea8a31"
-  }
+    "background-color": "#ea8a31",
+  },
 };
 
 const defaultEdgeStyle = {
@@ -24,30 +24,19 @@ const defaultEdgeStyle = {
     "haystack-radius": 0,
     width: 5,
     opacity: 0.666,
-    "line-color": "#fcc694"
-  }
+    "line-color": "#fcc694",
+  },
 };
 
 const defaultStyle = [defaultNodeStyle, defaultEdgeStyle];
 
 const defaultLayout = {
   name: "circle",
-  padding: 2
+  padding: 2,
 };
 
 export default class Cytoscape extends React.Component {
-  static defaultProps = {
-    height: "600px",
-    layout: defaultLayout,
-    style: defaultStyle,
-    width: "100%"
-  };
-
-  static propTypes = {
-    elements: PropTypes.object.isRequired
-  };
-
-  doTheThing() {
+  runCytoscape() {
     const { style, elements, layout } = this.props;
 
     if (Object.keys(elements).length) {
@@ -56,11 +45,11 @@ export default class Cytoscape extends React.Component {
   }
 
   componentDidMount() {
-    this.doTheThing();
+    this.runCytoscape();
   }
 
   componentDidUpdate() {
-    this.doTheThing();
+    this.runCytoscape();
   }
 
   render() {
@@ -73,3 +62,14 @@ export default class Cytoscape extends React.Component {
     );
   }
 }
+
+Cytoscape.defaultProps = {
+  height: "600px",
+  layout: defaultLayout,
+  style: defaultStyle,
+  width: "100%",
+};
+
+Cytoscape.propTypes = {
+  elements: PropTypes.object.isRequired,
+};
